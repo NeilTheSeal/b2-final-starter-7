@@ -5,6 +5,7 @@ namespace :csv_load do
     InvoiceItem.destroy_all
     Item.destroy_all
     Invoice.destroy_all
+    Coupon.destroy_all
     Merchant.destroy_all
     Customer.destroy_all
   end
@@ -96,10 +97,31 @@ namespace :csv_load do
     puts "InvoiceItems imported."
   end
 
+  task coupons: :environment do
+    CSV.foreach("db/data/coupons.csv", headers: true) do |row|
+      discount_type = row[3] == "percentage" ? 0 : 1
+      status = row[5] == "deactivated" ? 0 : 1
+
+      Coupon.create!({
+        id: row[0],
+        name: row[1],
+        code: row[2],
+        discount_type:,
+        discount: row[4],
+        status:,
+        merchant_id: row[6],
+        created_at: row[7],
+        updated_at: row[8]
+      })
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!("coupons")
+    puts "Coupons imported."
+  end
+
   task :all do
-    %i[clear_db customers invoices merchants items invoice_items
+    %i[clear_db customers merchants coupons invoices items invoice_items
        transactions].each do |task|
-      Rake::Task["csv_load:#{task}".to_sym].invoke
+      Rake::Task["csv_load:#{task}"].invoke
     end
   end
 end

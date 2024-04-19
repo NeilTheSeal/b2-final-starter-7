@@ -1,0 +1,5 @@
+id,name,code,discount_type,discount,status,merchant_id,created_at,updated_at
+1,TenPercentOff,PO001,"percentage",10,"activated",1,2024-01-01 00:00:00 UTC,2024-01-01 00:00:00 UTC
+2,TenDollarsOff,DO001,"dollar",1000,"activated",1,2024-01-01 00:00:00 UTC,2024-01-01 00:00:00 UTC
+3,FifteenPercentOff,PO002,"percentage",15,"deactivated",1,2024-01-01 00:00:00 UTC,2024-01-01 00:00:00 UTC
+4,FifteenDollarsOff,DO002,"dollar",1500,"deactivated",1,2024-01-01 00:00:00 UTC,2024-01-01 00:00:00 UTC
