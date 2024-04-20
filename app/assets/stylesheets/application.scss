@@ -11,70 +11,76 @@
  * It is generally better to create a new file per style scope.
  *
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+body {
+  padding: 0px;
+  margin: 0px;
+}
 
 .top-container {
-   h1 {
-      text-align: center;
-      background-color: #EBEFF3;
-   }
+  h1 {
+    text-align: center;
+    background-color: #EBEFF3;
+  }
 }
 
 .navbar {
-   margin-bottom: 30px;
-   .navbar-text {
-      margin-top: 1px;
-      margin-bottom: 1px;
-      font-weight: bold;
-   }
+  margin-bottom: 30px;
+  .navbar-text {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-weight: bold;
+  }
 }
 
 .table {
-   font-family: arial, sans-serif;
-   border-collapse: collapse;
-   width: 100%;
-   .td {
-      border: 1px solid #000000;
-      text-align: left;
-      padding: 8px;
-   }
-
-   .th1 {
-      background-color: #8D8F8F;
-      border: 1px solid #dddddd;
-      text-align: center;
-      padding: 4px;
-      color: #ffffff
-   }
-
-   .th2 {
-      background-color: #dddddd;
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-   }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  .td {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+  }
+  .th1 {
+    background-color: #8D8F8F;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 4px;
+    color: #ffffff
+  }
+  .th2 {
+    background-color: #dddddd;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
 }
 
 .column-header {
-   background-color: lavenderblush;
-   font-weight: bold;
-   text-align: center;
-   p[class$="-auto"] {
-      margin: 10px 0;
-   }
-      
+  background-color: lavenderblush;
+  font-weight: bold;
+  text-align: center;
+  p[class$="-auto"] {
+    margin: 10px 0;
+  }
 }
 
 .admin {
-   background-color: #7dca7d
+  background-color: #7dca7d
 }
 
- .col-12 {
-    background-color: #EBEFF3;
-    font-weight: bold;
-    text-align: center;
-    margin-right: 80px;
-    margin-left: 10px
- }
+.col-12 {
+  background-color: #EBEFF3;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 80px;
+  margin-left: 10px
+}
+
+.top-container>h1 {
+  padding: 15px;
+  margin-top: 0px;
+}

@@ -1,0 +1,22 @@
+<%= render partial: "shared/nav" %>
+
+<div class="row">
+  <div class="column-header">
+    Coupons for <%= @merchant.name %>
+  </div>
+</div>
+
+<div class="mr-auto">
+  <div id="coupon-list">
+    <% @merchant.coupons.each do |coupon| %>
+      <div id="coupon-<%= coupon.id %>" class="coupon-list-item">
+        <div class="coupon-list-item-header"><%= coupon.name %></div>
+        <ul>
+          <li>Coupon Code: <%= coupon.code %></li>
+          <li>Discount: <%= coupon.display_discount %></li>
+          <li>Status: <%= coupon.status %></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

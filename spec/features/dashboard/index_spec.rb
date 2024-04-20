@@ -231,7 +231,7 @@ RSpec.describe "merchant dashboard" do
   end
 
   it "has a link to view all the coupons" do
-    click_link("my coupons")
+    click_link("Coupons")
 
     expect(page).to have_current_path("/merchants/#{@merchant1.id}/coupons")
   end
