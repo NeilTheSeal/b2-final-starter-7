@@ -17,20 +17,84 @@ describe "Admin Dashboard Index Page" do
     @i4 = Invoice.create!(customer_id: @c3.id, status: 2)
     @i5 = Invoice.create!(customer_id: @c4.id, status: 2)
 
-    @t1 = Transaction.create!(invoice_id: @i1.id, credit_card_number: 00000, credit_card_expiration_date: 00000, result: 1)
-    @t2 = Transaction.create!(invoice_id: @i2.id, credit_card_number: 00000, credit_card_expiration_date: 00000, result: 1)
-    @t3 = Transaction.create!(invoice_id: @i3.id, credit_card_number: 00000, credit_card_expiration_date: 00000, result: 1)
-    @t4 = Transaction.create!(invoice_id: @i4.id, credit_card_number: 00000, credit_card_expiration_date: 00000, result: 1)
-    @t5 = Transaction.create!(invoice_id: @i5.id, credit_card_number: 00000, credit_card_expiration_date: 00000, result: 1)
+    @t1 = Transaction.create!(
+      invoice_id: @i1.id,
+      credit_card_number: 0o0000,
+      credit_card_expiration_date: "01/25",
+      result: 1
+    )
+    @t2 = Transaction.create!(
+      invoice_id: @i2.id,
+      credit_card_number: 0o0000,
+      credit_card_expiration_date: "01/25",
+      result: 1
+    )
+    @t3 = Transaction.create!(
+      invoice_id: @i3.id,
+      credit_card_number: 0o0000,
+      credit_card_expiration_date: "01/25",
+      result: 1
+    )
+    @t4 = Transaction.create!(
+      invoice_id: @i4.id,
+      credit_card_number: 0o0000,
+      credit_card_expiration_date: "01/25",
+      result: 1
+    )
+    @t5 = Transaction.create!(
+      invoice_id: @i5.id,
+      credit_card_number: 0o0000,
+      credit_card_expiration_date: "01/25",
+      result: 1
+    )
 
-    @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @m1.id)
-    @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @m1.id)
-    @item_3 = Item.create!(name: "Brush", description: "This takes out tangles", unit_price: 5, merchant_id: @m1.id)
+    @item1 = Item.create!(
+      name: "Shampoo",
+      description: "This washes your hair",
+      unit_price: 10,
+      merchant_id: @m1.id
+    )
+    @item2 = Item.create!(
+      name: "Conditioner",
+      description: "This makes your hair shiny",
+      unit_price: 8,
+      merchant_id: @m1.id
+    )
+    @item3 = Item.create!(
+      name: "Brush",
+      description: "This takes out tangles",
+      unit_price: 5,
+      merchant_id: @m1.id
+    )
 
-    @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 0)
-    @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
-    @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
-    @ii_4 = InvoiceItem.create!(invoice_id: @i3.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
+    @ii1 = InvoiceItem.create!(
+      invoice_id: @i1.id,
+      item_id: @item1.id,
+      quantity: 1,
+      unit_price: 10,
+      status: 0
+    )
+    @ii2 = InvoiceItem.create!(
+      invoice_id: @i1.id,
+      item_id: @item2.id,
+      quantity: 1,
+      unit_price: 8,
+      status: 0
+    )
+    @ii3 = InvoiceItem.create!(
+      invoice_id: @i2.id,
+      item_id: @item3.id,
+      quantity: 1,
+      unit_price: 5,
+      status: 2
+    )
+    @ii4 = InvoiceItem.create!(
+      invoice_id: @i3.id,
+      item_id: @item3.id,
+      quantity: 1,
+      unit_price: 5,
+      status: 1
+    )
     visit admin_dashboard_index_path
   end
 
