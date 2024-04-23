@@ -7,4 +7,11 @@ class CouponsController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @coupon = Coupon.find(params[:id])
   end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def create
+  end
 end

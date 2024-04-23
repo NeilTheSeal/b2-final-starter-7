@@ -1,8 +1,11 @@
 <%= render partial: "shared/nav" %>
 
-<div class="row">
+<div class="two-column">
   <div class="column-header">
     Coupons for <%= @merchant.name %>
+  </div>
+  <div class="column-button">
+    <%= link_to "New Coupon", new_merchant_coupon_path(merchant_id: @merchant.id) %>
   </div>
 </div>
 

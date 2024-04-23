@@ -84,3 +84,16 @@ body {
   padding: 15px;
   margin-top: 0px;
 }
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.column-button {
+  background-color: lavenderblush;
+  font-weight: bold;
+  text-align: center;
+}
