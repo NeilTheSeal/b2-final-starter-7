@@ -81,4 +81,11 @@ RSpec.describe "Merchant Coupons Index Page" do
       "/merchants/#{@merchant1.id}/coupons/#{@coupon1.id}"
     )
   end
+
+  it "has a link to create a new coupon" do
+    click_link("New Coupon")
+    expect(page).to have_current_path(
+      "/merchants/#{@merchant1.id}/coupons/new"
+    )
+  end
 end
