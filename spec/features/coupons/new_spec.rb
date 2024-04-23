@@ -88,5 +88,16 @@ RSpec.describe "Merchant Coupons New Page" do
       expect(page).to have_current_path("/merchants/#{@merchant.id}/coupons/new")
       expect(page).to have_content("Error: Coupon code must be unique.")
     end
+
+    it "does not create coupons if any fields are blank" do
+      fill_in("name", with: "")
+      fill_in("code", with: "PO005")
+      fill_in("discount", with: "20")
+      select("percentage", from: "discount_type")
+      click_button("submit")
+
+      expect(page).to have_current_path("/merchants/#{@merchant.id}/coupons/new")
+      expect(page).to have_content("Error:")
+    end
   end
 end
