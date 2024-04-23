@@ -13,5 +13,23 @@ class CouponsController < ApplicationController
   end
 
   def create
+    coupon = Coupon.create_new(new_coupon_params)
+    merchant = Merchant.find(params[:merchant_id])
+
+    if !Coupon.unique?(new_coupon_params)
+      flash[:alert] = "Error: Coupon code must be unique."
+      redirect_to new_merchant_coupon_path(merchant_id: merchant.id)
+    elsif coupon.save
+      redirect_to merchant_coupons_path(merchant_id: merchant.id)
+    else
+      flash[:alert] = "Error: #{coupon.errors.full_messages}"
+      redirect_to new_merchant_coupon_path(merchant_id: merchant.id)
+    end
+  end
+
+  private
+
+  def new_coupon_params
+    params.permit(:id, :name, :code, :discount, :discount_type, :merchant_id)
   end
 end

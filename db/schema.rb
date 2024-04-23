@@ -19,11 +19,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_19_225831) do
     t.string "code", null: false
     t.integer "discount_type", null: false
     t.integer "discount", null: false
-    t.integer "status", default: 0
+    t.integer "status", default: 1
     t.bigint "merchant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_coupons_on_code", unique: true
     t.index ["merchant_id"], name: "index_coupons_on_merchant_id"
   end
 

@@ -1,0 +1,17 @@
+<%= render partial: "shared/nav" %>
+
+<%= form_with url: "/merchants/#{@merchant.id}/coupons", method: :post, local: true, data: {turbo: false} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :code %>
+  <%= f.text_field :code %>
+
+  <%= f.label :discount, "Discount (dollar prices are in cents)" %>
+  <%= f.number_field :discount %>
+
+  <%= f.label :discount_type, "Discount Type:", value: "percentage" %>
+  <%= f.select(:discount_type, ["percentage", "dollar"]) %>
+
+  <%= f.submit "submit" %>
+<% end %>
