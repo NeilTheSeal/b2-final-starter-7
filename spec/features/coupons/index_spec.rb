@@ -77,6 +77,8 @@ RSpec.describe "Merchant Coupons Index Page" do
 
   it "each coupon is a link to the coupon show page" do
     click_link("TenPercentOff")
-    expect(page).to have_current_path("/coupons/#{@coupon1.id}")
+    expect(page).to have_current_path(
+      "/merchants/#{@merchant1.id}/coupons/#{@coupon1.id}"
+    )
   end
 end
