@@ -15,6 +15,10 @@ class Coupon < ApplicationRecord
     end
   end
 
+  def count_uses
+    invoices.joins(:transactions).where("transactions.result = 1").count
+  end
+
   def self.unique?(params)
     !Coupon.find_by(code: params[:code])
   end
