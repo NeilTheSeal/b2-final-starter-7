@@ -161,4 +161,21 @@ describe "Admin Invoices Index Page" do
       expect(@invoice.status).to eq("completed")
     end
   end
+
+  it "shows the name of the coupon used for this invoice" do
+    expect(page).to have_content(@coupon.name)
+    expect(page).to have_content("Coupon code: #{@coupon.code}")
+  end
+
+  it "shows no coupon used if a coupon was not used" do
+    @invoice.update(coupon_id: nil)
+
+    visit admin_invoice_path(@invoice)
+
+    expect(page).to have_content("None")
+  end
+
+  it "shows the total revenue after the coupon was used" do
+    expect(page).to have_content("Total Revenue: $198.00")
+  end
 end
