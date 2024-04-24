@@ -9,17 +9,20 @@
   </div>
 </div>
 
-<div class="mr-auto">
-  <div id="coupon-list">
+<div class="two-column">
+  <div id="activated-coupon-list">
     <% @merchant.coupons.each do |coupon| %>
-      <div id="coupon-<%= coupon.id %>" class="coupon-list-item">
-        <div class="coupon-list-item-header"><%= link_to coupon.name, merchant_coupon_path(merchant_id: @merchant.id, id: coupon.id) %></div>
-        <ul>
-          <li>Coupon Code: <%= coupon.code %></li>
-          <li>Discount: <%= coupon.display_discount %></li>
-          <li>Status: <%= coupon.status %></li>
-        </ul>
-      </div>
+      <% if coupon.status == "activated" %>
+        <%= render partial: "coupons/coupons_by_activation", locals: { coupon: coupon } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="deactivated-coupon-list">
+    <% @merchant.coupons.each do |coupon| %>
+      <% if coupon.status == "deactivated" %>
+        <%= render partial: "coupons/coupons_by_activation", locals: { coupon: coupon } %>
+      <% end %>
     <% end %>
   </div>
 </div>

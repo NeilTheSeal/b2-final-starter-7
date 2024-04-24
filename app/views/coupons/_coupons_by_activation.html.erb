@@ -1,0 +1,8 @@
+<div id="coupon-<%= coupon.id %>" class="coupon-list-item">
+  <div class="coupon-list-item-header"><%= link_to coupon.name, merchant_coupon_path(merchant_id: @merchant.id, id: coupon.id) %></div>
+  <ul>
+    <li>Coupon Code: <%= coupon.code %></li>
+    <li>Discount: <%= coupon.display_discount %></li>
+    <li>Status: <%= coupon.status %></li>
+  </ul>
+</div>
