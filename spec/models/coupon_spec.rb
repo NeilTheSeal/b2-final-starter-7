@@ -124,4 +124,69 @@ RSpec.describe Coupon, type: :model do
   it "counts the number of successful transactions with the coupon" do
     expect(@coupon1.count_uses).to eq(2)
   end
+
+  it "can activate a coupon" do
+    coupon = Coupon.create!(
+      name: "Test",
+      code: "DO005",
+      discount_type: "dollar",
+      discount: 3000,
+      merchant: @merchant,
+      status: "deactivated"
+    )
+
+    expect(coupon.attempt_update("activated")).to eq(true)
+  end
+
+  it "can deactivate a coupon" do
+    @invoice1.update(status: "completed")
+    @invoice2.update(status: "completed")
+    @invoice3.update(status: "cancelled")
+
+    expect(@coupon1.attempt_update("deactivated")).to eq(true)
+  end
+
+  it "returns an error when the coupon cannot be activated" do
+    Coupon.create!(
+      name: "15DollarsOff",
+      code: "DO002",
+      discount_type: "dollar",
+      discount: 1500,
+      status: "activated",
+      merchant: @merchant
+    )
+    Coupon.create!(
+      name: "20DollarsOff",
+      code: "DO003",
+      discount_type: "dollar",
+      discount: 2000,
+      status: "activated",
+      merchant: @merchant
+    )
+    Coupon.create!(
+      name: "25DollarsOff",
+      code: "DO004",
+      discount_type: "dollar",
+      discount: 2500,
+      status: "activated",
+      merchant: @merchant
+    )
+    coupon = Coupon.create_new(
+      name: "Test",
+      code: "DO005",
+      discount_type: "dollar",
+      discount: 3000,
+      merchant_id: @merchant.id
+    )
+
+    expect(coupon.attempt_update("activated")).to eq(
+      "Error: cannot activate more than 5 coupons."
+    )
+  end
+
+  it "cannot deactivate a coupon with pending invoices" do
+    expect(@coupon1.attempt_update("deactivated")).to eq(
+      "Error: cannot deactivate a coupon with pending invoices."
+    )
+  end
 end
