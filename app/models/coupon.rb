@@ -20,13 +20,21 @@ class Coupon < ApplicationRecord
   end
 
   def attempt_update(status)
-    if status == "deactivated" && invoices.where("invoices.status = 1").count.positive?
+    if status == "deactivated" && cannot_deactivate?
       "Error: cannot deactivate a coupon with pending invoices."
-    elsif status == "activated" && merchant.coupons.where("coupons.status = 1").count >= 5
+    elsif status == "activated" && cannot_activate?
       "Error: cannot activate more than 5 coupons."
     else
       update(status:)
     end
+  end
+
+  def cannot_activate?
+    merchant.coupons.where("coupons.status = 1").count >= 5
+  end
+
+  def cannot_deactivate?
+    invoices.where("invoices.status = 1").count.positive?
   end
 
   def self.unique?(params)
