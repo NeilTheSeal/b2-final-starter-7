@@ -10,7 +10,17 @@ class Invoice < ApplicationRecord
 
   enum status: %i[cancelled in_progress completed]
 
-  def total_revenue
+  def subtotal_revenue
     invoice_items.sum("unit_price * quantity")
+  end
+
+  def total_revenue
+    if coupon.nil?
+      subtotal_revenue
+    elsif coupon.discount_type == "percentage"
+      (subtotal_revenue * (100 - coupon.discount) / 100).round(2)
+    else
+      [0, subtotal_revenue - coupon.discount].max
+    end
   end
 end
