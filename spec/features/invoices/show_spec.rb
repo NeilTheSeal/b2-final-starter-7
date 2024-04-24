@@ -122,12 +122,12 @@ RSpec.describe "invoices show" do
   it "shows the item information" do
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@ii1.quantity)
-    expect(page).to have_content(@ii1.unit_price)
-    expect(page).to_not have_content(@ii4.unit_price)
+    expect(page).to have_content("$10.00")
+    expect(page).to_not have_content("$12.00")
   end
 
   it "shows the subtotal revenue for this invoice" do
-    expect(page).to have_content("$22,000")
+    expect(page).to have_content("$220.00")
   end
 
   it "shows a select field to update the invoice status" do
@@ -158,6 +158,6 @@ RSpec.describe "invoices show" do
   end
 
   it "shows the total revenue after the coupon was used" do
-    expect(page).to have_content(@invoice.total_revenue)
+    expect(page).to have_content("Total Revenue: $198.00")
   end
 end
