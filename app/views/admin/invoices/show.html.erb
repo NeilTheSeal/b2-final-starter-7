@@ -14,6 +14,16 @@
       <% end %>
   <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %>
   <p>Subtotal Revenue: $<%= number_with_precision(@invoice.subtotal_revenue / 100, precision: 2, delimiter: ",") %>
+  <div class="coupon-box">
+    <div class="coupon-box-header">Coupon used:</div>
+    <% if @invoice.coupon %>
+      <div><%= @invoice.coupon.name %></div>
+      <div class="coupon-code">Coupon code: <%= @invoice.coupon.code %></div>
+    <% else %>
+      <div>None</div>
+    <% end %>
+  </div>
+  <p>Total Revenue: $<%= number_with_precision(@invoice.total_revenue / 100, precision: 2, delimiter: ",") %></p>
 
   <h4>Customer:</h4>
     <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %><br>
