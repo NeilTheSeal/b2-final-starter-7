@@ -102,6 +102,26 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice.subtotal_revenue).to eq(22_000)
     end
 
+    it "revenue from items with valid 10% off coupon" do
+      @invoice.update(coupon_id: @coupon1.id)
+      # (17000 * 0.9) = 15,300
+
+      expect(@invoice.total_with_valid_coupons).to eq(15_300)
+    end
+
+    it "revenue from items with valid $10 off coupon" do
+      @invoice.update(coupon_id: @coupon2.id)
+      # 17,000 - 1000 = 16,000
+
+      expect(@invoice.total_with_valid_coupons).to eq(16_000)
+    end
+
+    it "revenue from items with no valid coupon" do
+      @invoice.update(coupon_id: @coupon1.id)
+
+      expect(@invoice.total_without_valid_coupons).to eq(5000)
+    end
+
     it "total_revenue - no coupon" do
       expect(@invoice.total_revenue).to eq(22_000)
     end
