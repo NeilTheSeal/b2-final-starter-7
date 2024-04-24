@@ -11,7 +11,17 @@
   <br>
 
   <p> Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-  <p>Total Revenue: <%= @invoice.total_revenue %></p>
+  <p>Subtotal Revenue: $<%= number_with_precision(@invoice.subtotal_revenue / 100, precision: 2, delimiter: ",") %></p>
+  <div class="coupon-box">
+    <div class="coupon-box-header">Coupon used:</div>
+    <% if @invoice.coupon %>
+      <%= link_to @invoice.coupon.name, merchant_coupon_path(@merchant, @invoice.coupon) %>
+      <div class="coupon-code">Coupon code: <%= @invoice.coupon.code %></div>
+    <% else %>
+      <div>None</div>
+    <% end %>
+  </div>
+  <p>Total Revenue: $<%= number_with_precision(@invoice.total_revenue / 100, precision: 2, delimiter: ",") %></p>
 
 
   <h4>Customer:</h4>
@@ -35,7 +45,7 @@
           <tr class="tr">
             <td style="text-align:center"><%= i.item.name %></td>
             <td style="text-align:center"><%= i.quantity %></td>
-            <td style="text-align:center">$<%= i.unit_price %></td>
+            <td style="text-align:center">$<%= number_with_precision(i.unit_price / 100, precision: 2, delimiter: ",") %></td>
             <td style="text-align:center">
               <%= form_with model: @invoice, url: merchant_invoice_path(@merchant, @invoice), method: :patch, local: true do |f| %>
                 <%= f.select :status, Invoice.statuses.keys, selected: "#{@invoice.status}" %>
