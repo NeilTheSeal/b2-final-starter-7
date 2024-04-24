@@ -1,0 +1,9 @@
+<%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch do |form| %>
+  <% if status == "activated" %>
+    <%= form.hidden_field :status, value: "deactivated" %>
+    <%= form.submit "deactivate" %>
+  <% else %>
+    <%= form.hidden_field :status, value: "activated" %>
+    <%= form.submit "activate" %>
+  <% end %>
+<% end %>

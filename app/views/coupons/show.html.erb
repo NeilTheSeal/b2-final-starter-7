@@ -12,5 +12,8 @@
     <div>Discount: <%= @coupon.display_discount %></div>
     <div>Status: <%= @coupon.status %></div>
     <div>This coupon has been used <%= @coupon.count_uses %> times.</div>
+    <div class="activate-deactivate">
+      <%= render partial: "coupons/status_update", locals: { status: @coupon.status } %>
+    </div>
   </div>
 </div>
