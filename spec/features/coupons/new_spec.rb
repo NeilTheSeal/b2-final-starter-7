@@ -14,10 +14,11 @@ RSpec.describe "Merchant Coupons New Page" do
 
     expect(page).to have_current_path("/merchants/#{@merchant.id}/coupons")
 
-    expect(page).to have_content("TwentyPercentOff")
-    expect(page).to have_content("PO003")
-    expect(page).to have_content("20%")
-    expect(page).to have_content("activated")
+    within "#activated-coupon-list" do
+      expect(page).to have_content("TwentyPercentOff")
+      expect(page).to have_content("PO003")
+      expect(page).to have_content("20%")
+    end
   end
 
   describe "coupon creation sad paths" do
@@ -75,7 +76,9 @@ RSpec.describe "Merchant Coupons New Page" do
       select("percentage", from: "discount_type")
       click_button("submit")
 
-      expect(page).to have_content("deactivated")
+      within "#deactivated-coupon-list" do
+        expect(page).to have_content("TwentyPercentOff")
+      end
     end
 
     it "does not create coupons with a non-unique code" do
