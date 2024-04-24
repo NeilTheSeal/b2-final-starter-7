@@ -9,7 +9,9 @@
   </div>
 </div>
 
-<div class="two-column">
+<div class="sorted-coupons">
+  <div class="column-label">Activated Coupons</div>
+  <div class="column-label">Deactivated Coupons</div>
   <div id="activated-coupon-list">
     <% @merchant.coupons.each do |coupon| %>
       <% if coupon.status == "activated" %>

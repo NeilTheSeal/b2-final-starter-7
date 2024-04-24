@@ -92,8 +92,26 @@ body {
   margin-bottom: 10px;
 }
 
+.two-column>* {
+  padding: 10px;
+}
+
 .column-button {
   background-color: lavenderblush;
   font-weight: bold;
   text-align: center;
+}
+
+.sorted-coupons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 12px;
+  margin-top: 10px;
+  justify-items: center;
+}
+
+.sorted-coupons>.column-label {
+  font-size: 20px;
+  border-bottom: 1px solid black;
+  padding: 8px 16px;
 }
