@@ -92,10 +92,10 @@ describe "Admin Invoices Index Page" do
     expect(page).to_not have_content(@ii3.status)
   end
 
-  it "should display the total revenue the invoice will generate" do
-    expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
+  it "should display the subtotal revenue the invoice will generate" do
+    expect(page).to have_content("Total Revenue: $#{@i1.subtotal_revenue}")
 
-    expect(page).to_not have_content(@i2.total_revenue)
+    expect(page).to_not have_content(@i2.subtotal_revenue)
   end
 
   it "should have status as a select field that updates the invoices status" do
