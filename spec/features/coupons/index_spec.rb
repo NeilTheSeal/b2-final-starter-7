@@ -44,33 +44,31 @@ RSpec.describe "Merchant Coupons Index Page" do
   end
 
   it "displays all of the coupon names including their amount" do
-    within("#coupon-list") do
+    within("#activated-coupon-list") do
       within("#coupon-#{@coupon1.id}") do
         expect(page).to have_content("TenPercentOff")
         expect(page).to have_content("Coupon Code: PO001")
         expect(page).to have_content("Discount: 10%")
-        expect(page).to have_content("Status: activated")
       end
 
       within("#coupon-#{@coupon2.id}") do
         expect(page).to have_content("TenDollarsOff")
         expect(page).to have_content("Coupon Code: DO001")
         expect(page).to have_content("Discount: $10.00")
-        expect(page).to have_content("Status: activated")
       end
+    end
 
+    within("#deactivated-coupon-list") do
       within("#coupon-#{@coupon3.id}") do
         expect(page).to have_content("FifteenPercentOff")
         expect(page).to have_content("Coupon Code: PO002")
         expect(page).to have_content("Discount: 15%")
-        expect(page).to have_content("Status: deactivated")
       end
 
       within("#coupon-#{@coupon4.id}") do
         expect(page).to have_content("FifteenDollarsOff")
         expect(page).to have_content("Coupon Code: DO002")
         expect(page).to have_content("Discount: $15.00")
-        expect(page).to have_content("Status: deactivated")
       end
     end
   end
