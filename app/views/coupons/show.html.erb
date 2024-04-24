@@ -1,2 +1,16 @@
 <%= render partial: "shared/nav" %>
 
+<div class="row">
+  <div class="column-header">
+    <%= @merchant.name %> coupon: <%= @coupon.name %>
+  </div>
+</div>
+
+<div class="mr-auto">
+  <div id="coupon-<%= @coupon.id %>" class="coupon-description">
+    <div>Coupon Code: <%= @coupon.code %></div>
+    <div>Discount: <%= @coupon.display_discount %></div>
+    <div>Status: <%= @coupon.status %></div>
+    <div>This coupon has been used <%= @coupon.count_uses %> times.</div>
+  </div>
+</div>
