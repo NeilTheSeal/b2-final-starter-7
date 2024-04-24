@@ -16,15 +16,15 @@ RSpec.describe "Merchant Coupon Show Page" do
 
     @invoice1 = @coupon.invoices.create!(
       customer: @customer,
-      status: 1
+      status: 0
     )
     @invoice2 = @coupon.invoices.create!(
       customer: @customer,
-      status: 1
+      status: 0
     )
     @invoice3 = @coupon.invoices.create!(
       customer: @customer,
-      status: 1
+      status: 0
     )
 
     @transaction1 = Transaction.create!(
@@ -72,5 +72,72 @@ RSpec.describe "Merchant Coupon Show Page" do
     click_button("activate")
     expect(page).to have_current_path(merchant_coupon_path(@merchant, @coupon))
     expect(page).to have_content("Status: activated")
+  end
+
+  it "cannot deactivate coupons with pending invoices" do
+    @invoice1.update(status: 1)
+
+    click_button("deactivate")
+
+    expect(page).to have_content(
+      "Error: cannot deactivate a coupon with pending invoices."
+    )
+  end
+
+  it "cannot activate a coupon with 5 activated coupons" do
+    @coupon.update(status: 0)
+
+    visit merchant_coupon_path(@merchant, @coupon)
+
+    Coupon.create!(
+      name: "TenPercentOff",
+      code: "PO001",
+      discount_type: "percentage",
+      discount: 10,
+      status: "activated",
+      merchant: @merchant
+    )
+
+    Coupon.create!(
+      name: "TenDollarsOff",
+      code: "DO002",
+      discount_type: "dollar",
+      discount: 1000,
+      status: "activated",
+      merchant: @merchant
+    )
+
+    Coupon.create!(
+      name: "FifteenPercentOff",
+      code: "PO002",
+      discount_type: "percentage",
+      discount: 15,
+      status: "activated",
+      merchant: @merchant
+    )
+
+    Coupon.create!(
+      name: "FifteenDollarsOff",
+      code: "DO003",
+      discount_type: "dollar",
+      discount: 1500,
+      status: "activated",
+      merchant: @merchant
+    )
+
+    Coupon.create!(
+      name: "TwentyDollarsOff",
+      code: "DO004",
+      discount_type: "dollar",
+      discount: 1500,
+      status: "activated",
+      merchant: @merchant
+    )
+
+    click_button("activate")
+
+    expect(page).to have_content(
+      "Error: cannot activate more than 5 coupons."
+    )
   end
 end
