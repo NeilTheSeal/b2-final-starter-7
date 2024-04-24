@@ -31,7 +31,9 @@ class CouponsController < ApplicationController
     merchant = Merchant.find(params[:merchant_id])
     coupon = Coupon.find(params[:id])
 
-    coupon.update(status: params[:status])
+    result = coupon.attempt_update(params[:status])
+
+    flash[:alert] = result unless result == true
 
     redirect_to merchant_coupon_path(merchant, coupon)
   end

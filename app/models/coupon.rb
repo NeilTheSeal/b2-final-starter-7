@@ -19,6 +19,16 @@ class Coupon < ApplicationRecord
     invoices.joins(:transactions).where("transactions.result = 1").count
   end
 
+  def attempt_update(status)
+    if status == "deactivated" && invoices.where("invoices.status = 1").count.positive?
+      "Error: cannot deactivate a coupon with pending invoices."
+    elsif status == "activated" && merchant.coupons.where("coupons.status = 1").count >= 5
+      "Error: cannot activate more than 5 coupons."
+    else
+      update(status:)
+    end
+  end
+
   def self.unique?(params)
     !Coupon.find_by(code: params[:code])
   end
