@@ -13,13 +13,14 @@ RSpec.describe Invoice, type: :model do
   end
   describe "instance methods" do
     before(:each) do
-      @merchant = Merchant.create!(name: "Hair Care")
+      @merchant1 = Merchant.create!(name: "Hair Care")
+      @merchant2 = Merchant.create!(name: "Other Dudes")
 
       @item1 = Item.create!(
         name: "Shampoo",
         description: "This washes your hair",
         unit_price: 1000,
-        merchant_id: @merchant.id,
+        merchant_id: @merchant1.id,
         status: 1
       )
 
@@ -27,14 +28,14 @@ RSpec.describe Invoice, type: :model do
         name: "Conditioner",
         description: "This makes your hair shiny",
         unit_price: 800,
-        merchant_id: @merchant.id
+        merchant_id: @merchant1.id
       )
 
       @item3 = Item.create!(
         name: "Brush",
         description: "This takes out tangles",
         unit_price: 500,
-        merchant_id: @merchant.id
+        merchant_id: @merchant2.id
       )
 
       @customer = Customer.create!(
@@ -48,7 +49,7 @@ RSpec.describe Invoice, type: :model do
         discount_type: "percentage",
         discount: 10,
         status: "activated",
-        merchant: @merchant
+        merchant: @merchant1
       )
 
       @coupon2 = Coupon.create!(
@@ -57,7 +58,7 @@ RSpec.describe Invoice, type: :model do
         discount_type: "dollar",
         discount: 1000,
         status: "activated",
-        merchant: @merchant
+        merchant: @merchant1
       )
 
       @invoice = Invoice.create!(
@@ -107,11 +108,15 @@ RSpec.describe Invoice, type: :model do
 
     it "total_revenue - 10% off coupon" do
       @invoice.update(coupon_id: @coupon1.id)
-      expect(@invoice.total_revenue).to eq(19_800)
+      # (17000 * 0.9) + 5000 = 20,300
+
+      expect(@invoice.total_revenue).to eq(20_300)
     end
 
     it "total_revenue - $10 off coupon" do
       @invoice.update(coupon_id: @coupon2.id)
+      # 22,000 - 1000 = 21,000
+
       expect(@invoice.total_revenue).to eq(21_000)
     end
   end
