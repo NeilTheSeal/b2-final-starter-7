@@ -118,9 +118,31 @@ namespace :csv_load do
     puts "Coupons imported."
   end
 
+  task add_coupons: :environment do
+    Merchant.find(1).invoices.each do |invoice|
+      invoice.update(coupon_id: 1)
+    end
+
+    Merchant.find(2).invoices.each do |invoice|
+      invoice.update(coupon_id: 2)
+    end
+
+    Merchant.find(3).invoices.each do |invoice|
+      invoice.update(coupon_id: 3)
+    end
+
+    Merchant.find(4).invoices.each do |invoice|
+      invoice.update(coupon_id: 4)
+    end
+
+    Merchant.find(5).invoices.each do |invoice|
+      invoice.update(coupon_id: 5)
+    end
+  end
+
   task :all do
     %i[clear_db customers merchants coupons invoices items invoice_items
-       transactions].each do |task|
+       transactions add_coupons].each do |task|
       Rake::Task["csv_load:#{task}"].invoke
     end
   end
